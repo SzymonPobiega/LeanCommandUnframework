@@ -2,7 +2,7 @@
 
 namespace LeanCommandUnframework
 {
-    public interface IHandlerFactory
+    public interface IObjectFactory
     {
         object CreateInstance(Type handlerType);
     }
