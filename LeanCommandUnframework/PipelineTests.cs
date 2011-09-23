@@ -48,9 +48,9 @@ namespace LeanCommandUnframework
             public bool WasFilteredAfter;
         }
 
-        public class TestCommandHandler
+        public class TestCommandHandler : IHandler<TestCommand>
         {
-            public TestCommandResult Handle(TestCommand command)
+            public object Handle(TestCommand command)
             {
                 return new TestCommandResult()
                            {
@@ -60,16 +60,17 @@ namespace LeanCommandUnframework
             }
         }
 
-        public class TestCommandFilter
+        public class TestCommandFilter : IFilter<TestCommand>
         {
-            public void BeforeHandling(TestCommand command)
+            public void OnHandling(TestCommand command)
             {
                 command.WasFilteredBefore = true;
             }
 
-            public void AfterHandling(TestCommandResult result)
+            public void OnHandled(TestCommand command, object result)
             {
-                result.WasFilteredAfter = true;
+                var typedResult = (TestCommandResult) result;
+                typedResult.WasFilteredAfter = true;
             }
         }
     }

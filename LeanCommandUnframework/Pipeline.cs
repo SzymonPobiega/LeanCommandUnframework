@@ -18,7 +18,7 @@ namespace LeanCommandUnframework
         public object Process(object command)
         {
             var commandType = command.GetType();
-            var handlerType = _handlerCollection.GetHandlerFor(commandType);
+            var handlerType = _handlerCollection.GetFor(commandType);
             dynamic handler = _objectFactory.CreateInstance(handlerType);
 
             dynamic dynamicCommand = command;

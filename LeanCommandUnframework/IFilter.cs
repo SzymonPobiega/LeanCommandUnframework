@@ -3,6 +3,6 @@
     public interface IFilter<in T>
     {
         void OnHandling(T command);
-        void OnHandled(T command);
+        void OnHandled(T command, object result);
     }
 }

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FilterCollectionTests.cs" />
     <Compile Include="FilterCollection.cs" />
     <Compile Include="HandlerCollection.cs" />
     <Compile Include="HandlerCollectionTests.cs" />

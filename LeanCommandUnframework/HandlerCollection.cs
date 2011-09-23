@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace LeanCommandUnframework
 {
@@ -16,22 +15,9 @@ namespace LeanCommandUnframework
         {
         }
 
-        protected override bool IsProperMethod(MethodInfo candidateMethod, Type commandType)
+        protected override bool MatchesType(Type genericArgument, Type commandType)
         {
-            return HasProperName(candidateMethod) && HasOneParametrOfType(candidateMethod, commandType);
-        }
-
-        private static bool HasProperName(MethodInfo candidateMethod)
-        {
-            return candidateMethod.Name == "Handle";
-        }
-
-        private static bool HasOneParametrOfType(MethodInfo candidateMethod, Type commandType)
-        {
-            var parameters = candidateMethod.GetParameters();
-
-            return parameters.Length == 1 &&
-                   parameters[0].ParameterType == commandType;
+            return genericArgument == commandType;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace LeanCommandUnframework
         {
             var collection = new HandlerCollection(typeof (TestCommandHandler));
 
-            var handlerType = collection.GetHandlerFor(typeof (TestCommand));
+            var handlerType = collection.GetFor(typeof (TestCommand));
 
             Assert.AreEqual(typeof(TestCommandHandler), handlerType);
         }
@@ -21,8 +21,8 @@ namespace LeanCommandUnframework
         {
             var collection = new HandlerCollection(typeof(TestCommandHandler), typeof (AnotherTestCommandHandler));
 
-            var firstHandler = collection.GetHandlerFor(typeof (TestCommand));
-            var secondHandler = collection.GetHandlerFor(typeof (AnotherTestCommand));
+            var firstHandler = collection.GetFor(typeof (TestCommand));
+            var secondHandler = collection.GetFor(typeof (AnotherTestCommand));
 
             Assert.AreEqual(typeof(TestCommandHandler), firstHandler);
             Assert.AreEqual(typeof(AnotherTestCommandHandler), secondHandler);
@@ -36,23 +36,19 @@ namespace LeanCommandUnframework
         {
         }
 
-        public class TestCommandResult
+        public class TestCommandHandler : IHandler<TestCommand>
         {
-        }
-
-        public class TestCommandHandler
-        {
-            public TestCommandResult Handle(TestCommand command)
+            public object Handle(TestCommand command)
             {
-                return new TestCommandResult();
+                return new object();
             }
         }
 
-        public class AnotherTestCommandHandler
+        public class AnotherTestCommandHandler : IHandler<AnotherTestCommand>
         {
-            public TestCommandResult Handle(AnotherTestCommand command)
+            public object Handle(AnotherTestCommand command)
             {
-                return new TestCommandResult();
+                return new object();
             }
         }
     }
