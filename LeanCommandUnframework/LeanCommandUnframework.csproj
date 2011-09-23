@@ -49,6 +49,8 @@
     <Compile Include="FilterCollection.cs" />
     <Compile Include="HandlerCollection.cs" />
     <Compile Include="HandlerCollectionTests.cs" />
+    <Compile Include="IFilter.cs" />
+    <Compile Include="IHandler.cs" />
     <Compile Include="ObjectFactory.cs" />
     <Compile Include="IObjectFactory.cs" />
     <Compile Include="Pipeline.cs" />
