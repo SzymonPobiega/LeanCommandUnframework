@@ -4,12 +4,12 @@ using NUnit.Framework;
 namespace LeanCommandUnframework
 {
     [TestFixture]
-    public class HandlerCollectionTests
+    public class HandlerSelectorTests
     {
         [Test]
         public void It_can_find_handler_by_exact_type()
         {
-            var collection = new HandlerCollection(typeof (TestCommandHandler));
+            var collection = new HandlerSelectorCollection(typeof (TestCommandHandler));
 
             var handlerType = collection.GetHandlerFor(typeof (TestCommand));
 
@@ -19,7 +19,7 @@ namespace LeanCommandUnframework
         [Test]
         public void It_can_contain_more_than_one_type()
         {
-            var collection = new HandlerCollection(typeof(TestCommandHandler), typeof (AnotherTestCommandHandler));
+            var collection = new HandlerSelectorCollection(typeof(TestCommandHandler), typeof (AnotherTestCommandHandler));
 
             var firstHandler = collection.GetHandlerFor(typeof(TestCommand));
             var secondHandler = collection.GetHandlerFor(typeof(AnotherTestCommand));

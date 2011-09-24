@@ -3,26 +3,29 @@ using System.Collections.Generic;
 
 namespace LeanCommandUnframework
 {
-    public class FilterCollection : TypeCollection
+    public class FilterCollection
     {
-        public FilterCollection(params Type[] filterTypes)
-            : base(filterTypes)
+        private readonly IEnumerable<object> _filters;
+
+        public FilterCollection(IEnumerable<object> filters)
         {
+            this._filters = filters;
         }
 
-        public FilterCollection(IEnumerable<Type> filterTypes)
-            : base(filterTypes)
+        public void OnHandling(dynamic command)
         {
+            foreach (dynamic filter in _filters)
+            {
+                filter.OnHandling(command);
+            }
         }
 
-        public IEnumerable<Type> GetFiltersFor(Type commandType)
+        public void OnHandled(dynamic command, object result)
         {
-            return FinaMatching(commandType);
-        }
-
-        protected override bool MatchesType(Type genericArgument, Type commandType)
-        {
-            return genericArgument.IsAssignableFrom(commandType);
+            foreach (dynamic filter in _filters)
+            {
+                filter.OnHandled(command, result);
+            }
         }
     }
 }

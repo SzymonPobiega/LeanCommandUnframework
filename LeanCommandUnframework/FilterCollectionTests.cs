@@ -1,5 +1,4 @@
-using System;
-using System.Linq;
+﻿using Moq;
 using NUnit.Framework;
 
 // ReSharper disable InconsistentNaming
@@ -9,53 +8,37 @@ namespace LeanCommandUnframework
     public class FilterCollectionTests
     {
         [Test]
-        public void It_can_find_handler_by_exact_type()
+        public void It_executes_all_filters_before_handling()
         {
-            var collection = new FilterCollection(typeof(TestCommandFilter));
+            var filterOne = new Mock<IFilter<TestCommand>>();
+            var filterTwo = new Mock<IFilter<TestCommand>>();
+            var collection = new FilterCollection(new object[] {filterOne.Object, filterTwo.Object});
+            var command = new TestCommand();
 
-            var filterTypes = collection.GetFiltersFor(typeof (TestCommand));
+            collection.OnHandling(command);
 
-            Assert.Contains(typeof(TestCommandFilter), filterTypes.ToList());
+            filterOne.Verify(x => x.OnHandling(command));
+            filterTwo.Verify(x => x.OnHandling(command));
         }
 
         [Test]
-        public void It_can_find_handler_by_subtype()
+        public void It_executes_all_filters_after_handling()
         {
-            var collection = new FilterCollection(typeof(TestCommandFilter));
+            var filterOne = new Mock<IFilter<TestCommand>>();
+            var filterTwo = new Mock<IFilter<TestCommand>>();
+            var collection = new FilterCollection(new object[] { filterOne.Object, filterTwo.Object });
+            var command = new TestCommand();
+            var result = new object();
 
-            var filterTypes = collection.GetFiltersFor(typeof(DerivedTestCommand));
+            collection.OnHandled(command, result);
 
-            Assert.Contains(typeof(TestCommandFilter), filterTypes.ToList());
+            filterOne.Verify(x => x.OnHandled(command, result));
+            filterTwo.Verify(x => x.OnHandled(command, result));
         }
+
 
         public class TestCommand
         {
-        }
-
-        public class DerivedTestCommand : TestCommand
-        {
-        }
-
-        public class TestCommandFilter : IFilter<TestCommand>
-        {
-            public void OnHandling(TestCommand command)
-            {
-            }
-
-            public void OnHandled(TestCommand command, object result)
-            {
-            }
-        }
-
-        public class DerivedTestCommandHandler : IFilter<DerivedTestCommand>
-        {
-            public void OnHandling(DerivedTestCommand command)
-            {
-            }
-
-            public void OnHandled(DerivedTestCommand command, object result)
-            {
-            }
         }
     }
 }

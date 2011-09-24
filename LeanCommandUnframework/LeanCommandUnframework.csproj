@@ -46,10 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FilterCollectionTests.cs" />
     <Compile Include="FilterCollection.cs" />
-    <Compile Include="HandlerCollection.cs" />
-    <Compile Include="HandlerCollectionTests.cs" />
+    <Compile Include="FilterCollectionTests.cs" />
+    <Compile Include="FilterSelectorTests.cs" />
+    <Compile Include="FilterSelector.cs" />
+    <Compile Include="HandlerSelectorCollection.cs" />
+    <Compile Include="HandlerSelectorTests.cs" />
     <Compile Include="IFilter.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="ObjectFactory.cs" />

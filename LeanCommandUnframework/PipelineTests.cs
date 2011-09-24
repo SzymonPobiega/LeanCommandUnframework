@@ -12,8 +12,8 @@ namespace LeanCommandUnframework
         [Test]
         public void It_executes_the_handler()
         {
-            var handlerCollection = new HandlerCollection(typeof(TestCommandHandler));
-            var filters = new FilterCollection();
+            var handlerCollection = new HandlerSelectorCollection(typeof(TestCommandHandler));
+            var filters = new FilterSelector();
             var pipeline = new Pipeline(handlerCollection, filters, new ObjectFactory());
 
             var result = pipeline.Process(new TestCommand()) as TestCommandResult;
@@ -25,8 +25,8 @@ namespace LeanCommandUnframework
         [Test]
         public void It_executes_the_filters()
         {
-            var handlers = new HandlerCollection(typeof(TestCommandHandler));
-            var filters = new FilterCollection(typeof (TestCommandFilter));
+            var handlers = new HandlerSelectorCollection(typeof(TestCommandHandler));
+            var filters = new FilterSelector(typeof (TestCommandFilter));
             var pipeline = new Pipeline(handlers, filters, new ObjectFactory());
 
             var result = pipeline.Process(new TestCommand()) as TestCommandResult;
