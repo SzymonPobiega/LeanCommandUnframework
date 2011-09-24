@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace LeanCommandUnframework
@@ -20,27 +19,28 @@ namespace LeanCommandUnframework
         public object Process(object command)
         {
             var commandType = command.GetType();
-
-            var filterTypes = _filterSelector.GetFiltersFor(commandType);
-            var filters = filterTypes.Select(x => _objectFactory.GetHandlerInstance(x));
-            var filterCollection = new FilterCollection(filters);
-
-            filterCollection.OnHandling(command);
-
-            object result = Handle(command, commandType);
-
-            filterCollection.OnHandled(command, result);
-
-            return result;
+            var pipeline = CreatePipeline(command, commandType);
+            return pipeline.Process();
         }
 
-        private object Handle(object command, Type commandType)
+        private Pipeline CreatePipeline(object command, Type commandType)
+        {
+            var handler = CreateHandler(commandType);
+            var filterCollection = CreateFilterCollection(commandType);
+            return new Pipeline(command, filterCollection, handler);
+        }
+
+        private object CreateHandler(Type commandType)
         {
             var handlerType = _handlerSelectorCollection.GetHandlerFor(commandType);
-            dynamic handler = _objectFactory.GetHandlerInstance(handlerType);
+            return _objectFactory.GetHandlerInstance(handlerType);
+        }
 
-            dynamic dynamicCommand = command;
-            return handler.Handle(dynamicCommand);
+        private FilterCollection CreateFilterCollection(Type commandType)
+        {
+            var filterTypes = _filterSelector.GetFiltersFor(commandType);
+            var filters = filterTypes.Select(x => _objectFactory.GetHandlerInstance(x));
+            return new FilterCollection(filters);
         }
     }
 }

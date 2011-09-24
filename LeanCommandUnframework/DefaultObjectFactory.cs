@@ -2,7 +2,7 @@
 
 namespace LeanCommandUnframework
 {
-    public class ObjectFactory : IObjectFactory
+    public class DefaultObjectFactory : IObjectFactory
     {
         public object GetHandlerInstance(Type handlerType)
         {
