@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using NUnit.Framework;
 
 // ReSharper disable InconsistentNaming
@@ -12,9 +13,19 @@ namespace LeanCommandUnframework
         {
             var collection = new FilterCollection(typeof(TestCommandFilter));
 
-            var handlerType = collection.GetFor(typeof (TestCommand));
+            var filterTypes = collection.GetFiltersFor(typeof (TestCommand));
 
-            Assert.AreEqual(typeof(TestCommandFilter), handlerType);
+            Assert.Contains(typeof(TestCommandFilter), filterTypes.ToList());
+        }
+
+        [Test]
+        public void It_can_find_handler_by_subtype()
+        {
+            var collection = new FilterCollection(typeof(TestCommandFilter));
+
+            var filterTypes = collection.GetFiltersFor(typeof(DerivedTestCommand));
+
+            Assert.Contains(typeof(TestCommandFilter), filterTypes.ToList());
         }
 
         public class TestCommand

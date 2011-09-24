@@ -15,9 +15,14 @@ namespace LeanCommandUnframework
         {
         }
 
+        public IEnumerable<Type> GetFiltersFor(Type commandType)
+        {
+            return FinaMatching(commandType);
+        }
+
         protected override bool MatchesType(Type genericArgument, Type commandType)
         {
-            return genericArgument == commandType;
+            return genericArgument.IsAssignableFrom(commandType);
         }
     }
 }

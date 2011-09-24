@@ -18,14 +18,9 @@ namespace LeanCommandUnframework
             _types = types;
         }
 
-        public Type GetFor(Type commandType)
+        protected IEnumerable<Type> FinaMatching(Type commandType)
         {
-            var handlerType = _types.FirstOrDefault(x => ImplementsProperInterface(x, commandType));
-            if (handlerType == null)
-            {
-                throw new InvalidOperationException("Could not find handler for command "+commandType.FullName);
-            }
-            return handlerType;
+            return _types.Where(x => ImplementsProperInterface(x, commandType));
         }
 
         private bool ImplementsProperInterface(Type candidateHandler, Type commandType)

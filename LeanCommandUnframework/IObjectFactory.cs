@@ -4,6 +4,7 @@ namespace LeanCommandUnframework
 {
     public interface IObjectFactory
     {
-        object CreateInstance(Type handlerType);
+        object GetHandlerInstance(Type handlerType);
+        object GetFilterInstance(Type filterType);
     }
 }
