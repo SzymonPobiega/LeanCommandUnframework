@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace LeanCommandUnframework
 {
-    public abstract class TypeCollection
+    public abstract class TypeSelector
     {
         private readonly IEnumerable<Type> _types;
 
-        protected TypeCollection(params Type[] types)
+        protected TypeSelector(params Type[] types)
             : this((IEnumerable<Type>)types)
         {
         }
 
-        protected TypeCollection(IEnumerable<Type> types)
+        protected TypeSelector(IEnumerable<Type> types)
         {
             _types = types;
         }

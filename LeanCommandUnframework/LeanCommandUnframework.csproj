@@ -50,7 +50,7 @@
     <Compile Include="FilterCollectionTests.cs" />
     <Compile Include="FilterSelectorTests.cs" />
     <Compile Include="FilterSelector.cs" />
-    <Compile Include="HandlerSelectorCollection.cs" />
+    <Compile Include="HandlerSelector.cs" />
     <Compile Include="HandlerSelectorTests.cs" />
     <Compile Include="IFilter.cs" />
     <Compile Include="IHandler.cs" />
@@ -61,7 +61,7 @@
     <Compile Include="PipelineFactoryTests.cs" />
     <Compile Include="PipelineTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeCollection.cs" />
+    <Compile Include="TypeSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

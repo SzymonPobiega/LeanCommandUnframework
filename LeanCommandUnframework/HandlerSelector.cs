@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace LeanCommandUnframework
 {
-    public class HandlerSelectorCollection : TypeCollection
+    public class HandlerSelector : TypeSelector
     {
-        public HandlerSelectorCollection(params Type[] handlerTypes)
+        public HandlerSelector(params Type[] handlerTypes)
             : base(handlerTypes)
         {
         }
 
-        public HandlerSelectorCollection(IEnumerable<Type> handlerTypes)
+        public HandlerSelector(IEnumerable<Type> handlerTypes)
             : base(handlerTypes)
         {
         }

@@ -12,7 +12,7 @@ namespace LeanCommandUnframework
         [Test]
         public void It_can_process_a_command()
         {
-            var handlerCollection = new HandlerSelectorCollection(typeof(TestCommandHandler));
+            var handlerCollection = new HandlerSelector(typeof(TestCommandHandler));
             var filters = new FilterSelector();
             var pipeline = new PipelineFactory(handlerCollection, filters, new DefaultObjectFactory());
 

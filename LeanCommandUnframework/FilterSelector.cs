@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LeanCommandUnframework
 {
-    public class FilterSelector : TypeCollection
+    public class FilterSelector : TypeSelector
     {
         public FilterSelector(params Type[] filterTypes)
             : base(filterTypes)

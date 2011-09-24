@@ -9,7 +9,7 @@ namespace LeanCommandUnframework
         [Test]
         public void It_can_find_handler_by_exact_type()
         {
-            var collection = new HandlerSelectorCollection(typeof (TestCommandHandler));
+            var collection = new HandlerSelector(typeof (TestCommandHandler));
 
             var handlerType = collection.GetHandlerFor(typeof (TestCommand));
 
@@ -19,7 +19,7 @@ namespace LeanCommandUnframework
         [Test]
         public void It_can_contain_more_than_one_type()
         {
-            var collection = new HandlerSelectorCollection(typeof(TestCommandHandler), typeof (AnotherTestCommandHandler));
+            var collection = new HandlerSelector(typeof(TestCommandHandler), typeof (AnotherTestCommandHandler));
 
             var firstHandler = collection.GetHandlerFor(typeof(TestCommand));
             var secondHandler = collection.GetHandlerFor(typeof(AnotherTestCommand));

@@ -5,13 +5,13 @@ namespace LeanCommandUnframework
 {
     public class PipelineFactory
     {
-        private readonly HandlerSelectorCollection _handlerSelectorCollection;
+        private readonly HandlerSelector _handlerSelector;
         private readonly FilterSelector _filterSelector;
         private readonly IObjectFactory _objectFactory;
 
-        public PipelineFactory(HandlerSelectorCollection handlerSelectorCollection, FilterSelector filterSelector, IObjectFactory objectFactory)
+        public PipelineFactory(HandlerSelector handlerSelector, FilterSelector filterSelector, IObjectFactory objectFactory)
         {
-            _handlerSelectorCollection = handlerSelectorCollection;
+            _handlerSelector = handlerSelector;
             _filterSelector = filterSelector;
             _objectFactory = objectFactory;
         }
@@ -32,7 +32,7 @@ namespace LeanCommandUnframework
 
         private object CreateHandler(Type commandType)
         {
-            var handlerType = _handlerSelectorCollection.GetHandlerFor(commandType);
+            var handlerType = _handlerSelector.GetHandlerFor(commandType);
             return _objectFactory.GetHandlerInstance(handlerType);
         }
 
