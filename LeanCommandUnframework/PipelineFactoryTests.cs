@@ -7,33 +7,19 @@ using NUnit.Framework;
 namespace LeanCommandUnframework
 {
     [TestFixture]
-    public class PipelineTests
+    public class PipelineFactoryTests
     {
         [Test]
         public void It_executes_the_handler()
         {
             var handlerCollection = new HandlerSelectorCollection(typeof(TestCommandHandler));
             var filters = new FilterSelector();
-            var pipeline = new Pipeline(handlerCollection, filters, new ObjectFactory());
+            var pipeline = new PipelineFactory(handlerCollection, filters, new ObjectFactory());
 
             var result = pipeline.Process(new TestCommand()) as TestCommandResult;
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.WasHandled);
-        }
-
-        [Test]
-        public void It_executes_the_filters()
-        {
-            var handlers = new HandlerSelectorCollection(typeof(TestCommandHandler));
-            var filters = new FilterSelector(typeof (TestCommandFilter));
-            var pipeline = new Pipeline(handlers, filters, new ObjectFactory());
-
-            var result = pipeline.Process(new TestCommand()) as TestCommandResult;
-
-            Assert.IsNotNull(result);
-            Assert.IsTrue(result.WasFilteredBefore);
-            Assert.IsTrue(result.WasFilteredAfter);
         }
 
         public class TestCommand
@@ -57,20 +43,6 @@ namespace LeanCommandUnframework
                                WasHandled = true,
                                WasFilteredBefore = command.WasFilteredBefore
                            };
-            }
-        }
-
-        public class TestCommandFilter : IFilter<TestCommand>
-        {
-            public void OnHandling(TestCommand command)
-            {
-                command.WasFilteredBefore = true;
-            }
-
-            public void OnHandled(TestCommand command, object result)
-            {
-                var typedResult = (TestCommandResult) result;
-                typedResult.WasFilteredAfter = true;
             }
         }
     }

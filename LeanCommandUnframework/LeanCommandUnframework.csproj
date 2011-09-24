@@ -56,8 +56,8 @@
     <Compile Include="IHandler.cs" />
     <Compile Include="ObjectFactory.cs" />
     <Compile Include="IObjectFactory.cs" />
-    <Compile Include="Pipeline.cs" />
-    <Compile Include="PipelineTests.cs" />
+    <Compile Include="PipelineFactory.cs" />
+    <Compile Include="PipelineFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeCollection.cs" />
   </ItemGroup>

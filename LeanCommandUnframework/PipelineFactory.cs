@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace LeanCommandUnframework
 {
-    public class Pipeline
+    public class PipelineFactory
     {
         private readonly HandlerSelectorCollection _handlerSelectorCollection;
         private readonly FilterSelector _filterSelector;
         private readonly IObjectFactory _objectFactory;
 
-        public Pipeline(HandlerSelectorCollection handlerSelectorCollection, FilterSelector filterSelector, IObjectFactory objectFactory)
+        public PipelineFactory(HandlerSelectorCollection handlerSelectorCollection, FilterSelector filterSelector, IObjectFactory objectFactory)
         {
             _handlerSelectorCollection = handlerSelectorCollection;
             _filterSelector = filterSelector;
