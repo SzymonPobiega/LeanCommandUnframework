@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LeanCommandUnframework
 {
@@ -9,7 +10,7 @@ namespace LeanCommandUnframework
 
         public FilterCollection(IEnumerable<object> filters)
         {
-            this._filters = filters;
+            _filters = filters.ToList();
         }
 
         public void OnHandling(dynamic command)

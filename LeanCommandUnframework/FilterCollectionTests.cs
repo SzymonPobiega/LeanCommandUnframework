@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using System;
+using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 
 // ReSharper disable InconsistentNaming
@@ -36,6 +38,36 @@ namespace LeanCommandUnframework
             filterTwo.Verify(x => x.OnHandled(command, result));
         }
 
+        [Test]
+        public void It_calls_OnProcessing_and_OnProcessed_on_same_instances_of_filters()
+        {
+            var collection = new FilterCollection(GetFilterInstances());
+            var command = new TestCommand();
+            var result = new object();
+
+            collection.OnHandling(command);
+            collection.OnHandled(command, result);
+        }
+
+        private static IEnumerable<object> GetFilterInstances()
+        {
+            yield return new TestFilter();
+        }
+
+        public class TestFilter : IFilter<TestCommand>
+        {
+            private bool _onHandlingCalled;
+
+            public void OnHandling(TestCommand command)
+            {
+                _onHandlingCalled = true;
+            }
+
+            public void OnHandled(TestCommand command, object result)
+            {
+                Assert.IsTrue(_onHandlingCalled);
+            }
+        }
 
         public class TestCommand
         {
