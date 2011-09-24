@@ -18,7 +18,7 @@ namespace LeanCommandUnframework
 
         public Type GetHandlerFor(Type commandType)
         {
-            return FinaMatching(commandType).Single();
+            return FindMatching(typeof(IHandler<>), commandType).Single();
         }
 
         protected override bool MatchesType(Type genericArgument, Type commandType)

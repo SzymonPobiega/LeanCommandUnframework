@@ -17,7 +17,7 @@ namespace LeanCommandUnframework
 
         public IEnumerable<Type> GetFiltersFor(Type commandType)
         {
-            return FinaMatching(commandType);
+            return FindMatching(typeof(IFilter<>), commandType);
         }
 
         protected override bool MatchesType(Type genericArgument, Type commandType)

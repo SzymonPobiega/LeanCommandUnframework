@@ -18,20 +18,21 @@ namespace LeanCommandUnframework
             _types = types;
         }
 
-        protected IEnumerable<Type> FinaMatching(Type commandType)
+        protected IEnumerable<Type> FindMatching(Type openGenericInterfaceType, Type commandType)
         {
-            return _types.Where(x => ImplementsProperInterface(x, commandType));
+            return _types.Where(x => ImplementsProperInterface(x, openGenericInterfaceType, commandType));
         }
 
-        private bool ImplementsProperInterface(Type candidateHandler, Type commandType)
+        private bool ImplementsProperInterface(Type candidateHandler, Type openGenericInterfaceType, Type commandType)
         {
             var interfaces = candidateHandler.GetInterfaces();
-            return interfaces.Any(x => IsProperInterface(x, commandType));
+            return interfaces.Any(x => IsProperInterface(x, openGenericInterfaceType, commandType));
         }
 
-        private bool IsProperInterface(Type candidateInterface, Type commandType)
+        private bool IsProperInterface(Type candidateInterface, Type openGenericInterfaceType, Type commandType)
         {
             return candidateInterface.IsGenericType &&
+                   candidateInterface.GetGenericTypeDefinition() == openGenericInterfaceType &&
                    candidateInterface.GetGenericArguments().Length == 1 &&
                    MatchesType(candidateInterface.GetGenericArguments()[0], commandType);
         }
